@@ -42,6 +42,11 @@ Efficient, multilingual intent recognition for offline voice assistants.
 | :--- | :--- |
 | **`lstm.ipynb`** | **Arabic Diacritizer.** Trains a lightweight LSTM model to automatically add diacritics to Arabic text. This is a critical preprocessing step for training high-quality Arabic TTS models. Includes export to ONNX. |
 
+### 🧪 Scratch (`/scratch`)
+
+Informal working notebooks kept for reference. Not polished, not maintained. Use
+as a starting point or for experimentation only.
+
 ---
 
 ## 🚀 Getting Started
