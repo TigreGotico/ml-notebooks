@@ -1,90 +1,85 @@
-# TigreGotico Open Voice Notebooks
+# ml-notebooks
 
-**Empowering the FOSS community to train, fine-tune, and deploy state-of-the-art voice models.**
+This repository holds Jupyter notebooks from [TigreGotico](https://tigregotico.pt) and the Open Voice OS community. The notebooks build datasets and train models for text-to-speech (TTS), wake word detection, and intent classification with open-source tools.
 
-This repository contains a collection of Jupyter notebooks developed by [TigreGotico](https://tigregotico.pt) and the Open Voice OS community. These tools are designed to democratize access to voice AI technologies, allowing developers to create datasets and train models for Text-to-Speech (TTS), Wake Word detection, and Intent Classification using open-source tools.
+## Repository structure
 
-## 📂 Repository Structure
+### Text-to-speech (TTS)
 
-### 🗣️ Text-to-Speech (TTS)
-*Located in `/tts`*
-
-Tools for creating datasets and training VITS-based models.
+Located in `/tts`. These notebooks create datasets and train VITS-based models.
 
 | Notebook | Description |
 | :--- | :--- |
-| **`tts_dataset_gen.ipynb`** | **Synthetic TTS Dataset Generator.** Creates LJSpeech-style datasets using a single "donor" TTS voice and Voice Conversion (VC). Features a full pipeline: synthesis, super-resolution, silence trimming, and metadata generation. |
-| **`asr2tts.ipynb`** | **ASR-to-TTS Pipeline.** Converts "in-the-wild" ASR datasets (like Mozilla Common Voice) into high-quality TTS training data. Includes format standardization, denoising (`resemble-enhance`), silence trimming, volume normalization, and WPM filtering. |
-| **`train_vits.ipynb`** | **Train & Export VITS.** A platform-agnostic notebook (Colab, Kaggle, Local) to train models using [phoonnx](https://github.com/TigreGotico/phoonnx). Supports fine-tuning, multi-speaker training, and exporting to ONNX for use with Piper, Sherpa-ONNX, and OVOS. |
+| `tts_dataset_gen.ipynb` | Builds LJSpeech-style datasets from a single donor TTS voice with voice conversion (VC). The pipeline covers synthesis, super-resolution, silence trimming, and metadata generation. |
+| `asr2tts.ipynb` | Converts in-the-wild ASR datasets, such as Mozilla Common Voice, into TTS training data. Steps include format standardization, denoising with `resemble-enhance`, silence trimming, volume normalization, and filtering by words per minute. |
+| `train_vits.ipynb` | Trains and exports VITS models on Colab, Kaggle, or a local machine, using [phoonnx](https://github.com/TigreGotico/phoonnx). Supports fine-tuning and multi-speaker training, and exports to ONNX for Piper, Sherpa-ONNX, and OVOS. |
 
-### 🔔 Wake Word (WW)
-*Located in `/ww`*
+### Wake word (WW)
 
-Tools for generating synthetic wake word data to bootstrap training without user recordings.
-
-| Notebook | Description |
-| :--- | :--- |
-| **`tts2ww.ipynb`** | **Wake Word Dataset Generator.** A comprehensive pipeline that generates positive and negative samples. Features **adversarial generation** (using LLMs and grapheme edits to create similar-sounding words), TTS synthesis, voice cloning augmentation, and environmental augmentation (noise/reverb) for robust model training. |
-
-### 🧠 Intent Classification (M2V)
-*Located in `/m2v`*
-
-Efficient, multilingual intent recognition for offline voice assistants.
+Located in `/ww`. This notebook generates synthetic wake word data so you can train a model without recording your own voice.
 
 | Notebook | Description |
 | :--- | :--- |
-| **`ovos_intent_classifier_multilingual.ipynb`** | **Multilingual Intent Classifier.** Trains extremely efficient classifiers using `model2vec` on the Open Voice OS intents dataset. Includes steps to export the model to ONNX for **dependency-free inference** (requiring only `numpy` and `onnxruntime`). |
+| `tts2ww.ipynb` | Generates positive and negative wake word samples. It creates adversarial samples with LLMs and grapheme edits to produce similar-sounding words, then applies TTS synthesis, voice cloning augmentation, and environment augmentation (noise, reverb). |
 
-### 📝 Text Utilities
-*Located in `/arabic_diacritics`*
+### Intent classification (M2V)
+
+Located in `/m2v`. This notebook trains multilingual intent classifiers for offline voice assistants.
 
 | Notebook | Description |
 | :--- | :--- |
-| **`lstm.ipynb`** | **Arabic Diacritizer.** Trains a lightweight LSTM model to automatically add diacritics to Arabic text. This is a critical preprocessing step for training high-quality Arabic TTS models. Includes export to ONNX. |
+| `ovos_intent_classifier_multilingual.ipynb` | Trains intent classifiers with `model2vec` on the Open Voice OS intents dataset, then exports the model to ONNX. The exported model needs only `numpy` and `onnxruntime` to run. |
 
----
+### Text utilities
 
-## 🚀 Getting Started
+Located in `/arabic_diacritics`.
 
-These notebooks are designed to be self-contained. Most define their own dependencies and installation steps within the first few cells.
+| Notebook | Description |
+| :--- | :--- |
+| `lstm.ipynb` | Trains an LSTM model that adds diacritics to Arabic text, a preprocessing step for Arabic TTS models, and exports it to ONNX. |
 
-**Prerequisites:**
-1.  **Python 3.10+** (Recommended).
-2.  **GPU Acceleration:** While inference steps can run on CPU, training (VITS) and heavy data processing (Voice Conversion/Denoising) are significantly faster with an NVIDIA GPU (CUDA).
-3.  **HuggingFace Account:** Some notebooks require a token to upload datasets or download gated models.
+## Getting started
 
-**Usage:**
-1.  Clone this repository:
-    ```bash
-    git clone <your-repo-url>
-    cd <your-repo-name>
-    ```
-2.  Launch Jupyter Lab or Notebook:
-    ```bash
-    jupyter lab
-    ```
-3.  Open the desired notebook and follow the "Configuration" cells at the top of each file to set your paths and parameters.
+Each notebook defines its own dependencies and installation steps in its first few cells.
 
----
+Prerequisites:
 
-## 🤝 Community & Support
+1. Python 3.10 or later.
+2. A GPU with CUDA support. Inference can run on CPU, but training (VITS) and heavy data processing (voice conversion, denoising) run faster with an NVIDIA GPU.
+3. A Hugging Face account. Some notebooks need a token to upload datasets or download gated models.
 
-These tools are built to support the **Open Voice OS** ecosystem and the broader privacy-focused AI community.
+To use a notebook:
 
-* **Open Voice OS:** [openvoiceos.org](https://openvoiceos.org)
-* **Matrix Chat:** `#openvoiceos:matrix.org`
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/TigreGotico/ml-notebooks
+   cd ml-notebooks
+   ```
+2. Start Jupyter Lab or Notebook:
+   ```bash
+   jupyter lab
+   ```
+3. Open the notebook you need and follow the configuration cells at the top to set your paths and parameters.
 
-## 📜 Credits & Acknowledgments
+## Related projects
 
-> **DISCLAIMER**: Generative AI was used to convert various python scripts into notebook format
+* [TigreGotico/phoonnx](https://github.com/TigreGotico/phoonnx) — TTS engine used by `train_vits.ipynb` to train and export VITS models.
+* [TigreGotico/chatterbox-onnx](https://github.com/TigreGotico/chatterbox-onnx) — voice cloning and TTS runtime used in the dataset generation pipelines.
 
-* **Author:** [TigreGotico](https://tigregotico.pt)
-* **Core Technologies:**
-    * [Phoonnx](https://github.com/TigreGotico/phoonnx) / VITS
-    * [chatterbox-onnx](https://github.com/TigreGotico/chatterbox-onnx)
-    * [Model2Vec](https://github.com/Minishlab/model2vec)
-    * [ONNX Runtime](https://onnxruntime.ai/)
+## Community
 
-## ⚖️ License
+These notebooks support the Open Voice OS ecosystem and the wider privacy-focused voice AI community.
 
-[Apache 2.0](LICENSE) (or see individual notebooks for specific licensing details).
+* Open Voice OS: [openvoiceos.org](https://openvoiceos.org)
+* Matrix chat: `#openvoiceos:matrix.org`
+
+## Credits
+
+Generative AI was used to convert some Python scripts into notebook format.
+
+* Author: [TigreGotico](https://tigregotico.pt)
+* Core technologies: [phoonnx](https://github.com/TigreGotico/phoonnx) (VITS), [chatterbox-onnx](https://github.com/TigreGotico/chatterbox-onnx), [Model2Vec](https://github.com/Minishlab/model2vec), [ONNX Runtime](https://onnxruntime.ai/)
+
+## License
+
+[Apache 2.0](LICENSE). See individual notebooks for any additional licensing details.
